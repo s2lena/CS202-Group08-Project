@@ -10,10 +10,15 @@ public:
        my = 0;
      }
      
+  Car(int x, int y){
+    mx = x;
+    my = y;
+  }
+
 void draw(){
        drawPoint(mx,my);
        drawPoint(mx,my+1);
-       drawPoint(mx,my+1);
+       drawPoint(mx+1,my+1);
      }
      
 void drawPoint(int x,int y){
@@ -23,8 +28,9 @@ void drawPoint(int x,int y){
      
 void erase(){
        if(outMap(mx,my)){
-         mx = 0;
-         my = 0;
+         gotoXY(mx,my);
+         cout << " ";
+         mx = 1;
        }
      }
      

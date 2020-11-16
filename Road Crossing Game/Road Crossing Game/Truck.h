@@ -5,16 +5,21 @@
 
 class Truck : public Vehicle {
 public:
-	Truck(){
-       xPos = 0;
-       yPos = 0;
+Truck(){
+       mx = 0;
+       my = 0;
      }
      
+Truck(int x,int y){
+      mx = x;
+      my = y;
+}
+
 void draw(){
-       drawPoint(mx+1,my);
-       drawPoint(mx,my+1);
-	   drawPoint(mx+1,my+1);
-       drawPoint(mx+2,my+1);
+      drawPoint(mx+1,my);
+      drawPoint(mx,my+1);
+      drawPoint(mx+1,my+1);
+      drawPoint(mx+2,my+1);
      }
      
 void drawPoint(int x,int y){
@@ -24,8 +29,9 @@ void drawPoint(int x,int y){
      
 void erase(){
        if(outMap(mx,my)){
-         mx = 0;
-         my = 0;
+         gotoXY(mx,my);
+         cout << " ";
+         mx = 1;
        }
      }
      
