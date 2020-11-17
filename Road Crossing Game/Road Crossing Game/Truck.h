@@ -6,38 +6,56 @@
 class Truck : public Vehicle {
 public:
 Truck(){
-       mx = 0;
-       my = 0;
-     }
+  mx = 0;
+  my = 0;
+}
      
 Truck(int x,int y){
-      mx = x;
-      my = y;
+  mx = x;
+  my = y;
 }
 
 void draw(){
-      drawPoint(mx+1,my);
-      drawPoint(mx,my+1);
-      drawPoint(mx+1,my+1);
-      drawPoint(mx+2,my+1);
-     }
+  drawPoint(mx+1,my);
+  drawPoint(mx+2,my);
+  drawPoint(mx,my+1);
+  drawPoint(mx+1,my+1);
+  drawPoint(mx+2,my+1);
+  drawPoint(mx+3,my+1);
+}
      
 void drawPoint(int x,int y){
-       gotoXY(x,y);
-       cout << (char)223;
-     }   
+  gotoXY(x,y);
+  cout << (char)223;
+}   
      
 void erase(){
-       if(outMap(mx,my)){
-         gotoXY(mx,my);
-         cout << " ";
-         mx = 1;
-       }
-     }
+  if(outMap(mx,my)){
+    erasePoint(mx+1,my);
+    erasePoint(mx+2,my);
+    erasePoint(mx,my+1);
+    erasePoint(mx+1,my+1);
+    erasePoint(mx+2,my+1);
+    erasePoint(mx+3,my+1);
+    mx = 1;
+    }
+    erasePoint(mx+1,my);
+    erasePoint(mx+2,my);
+    erasePoint(mx,my+1);
+    erasePoint(mx+1,my+1);
+    erasePoint(mx+2,my+1);
+    erasePoint(mx+3,my+1);
+  }
+    
+void erasePoint(int x, int y){
+  goToXY(x,y);
+  cout << " ";
+}
      
 void move(){
-       mx ++;
-     }
+  mx ++;
+}
+
 };
 
 #endif // _TRUCK_H

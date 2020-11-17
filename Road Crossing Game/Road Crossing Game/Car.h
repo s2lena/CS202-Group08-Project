@@ -17,8 +17,10 @@ public:
 
 void draw(){
        drawPoint(mx,my);
+       drawPoint(mx+1,my);
        drawPoint(mx,my+1);
        drawPoint(mx+1,my+1);
+       drawPoint(mx+2,my+1);
      }
      
 void drawPoint(int x,int y){
@@ -27,12 +29,25 @@ void drawPoint(int x,int y){
      }   
      
 void erase(){
-       if(outMap(mx,my)){
-         gotoXY(mx,my);
-         cout << " ";
-         mx = 1;
-       }
+   if(outMap(mx,my)){
+    erasePoint(mx,my);
+    erasePoint(mx+1,my);
+    erasePoint(mx,my+1);
+    erasePoint(mx+1,my+1);
+    erasePoint(mx+2,my+1);
+    mx = 1;
+    }
+    erasePoint(mx,my);
+    erasePoint(mx+1,my);
+    erasePoint(mx,my+1);
+    erasePoint(mx+1,my+1);
+    erasePoint(mx+2,my+1);
      }
+
+void erasePoint(int x, int y){
+  goToXY(x,y);
+  cout << " ";
+}
      
 void move(){
        mx ++;
