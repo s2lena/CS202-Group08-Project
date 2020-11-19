@@ -8,22 +8,18 @@ People::People() {
 
 void People::Up(int) {
 	if (my != 0) my--;
-	return my;
 }
 
 void People::Left(int) {
 	if (mx != 0) mx--;
-	return mx;
 }
 
 void People::Right(int) {
 	if (mx != 90) mx++;
-	return mx;
 }
 
 void People::Down(int) {
 	if (my != 50) my++;
-	return my;
 }
 
 bool People::isImpact(const Vehicle*& a) {
