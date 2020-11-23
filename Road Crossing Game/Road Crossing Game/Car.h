@@ -29,14 +29,6 @@ void drawPoint(int x,int y){
      }   
      
 void erase(){
-   if(outMap(mx,my)){
-    erasePoint(mx,my);
-    erasePoint(mx+1,my);
-    erasePoint(mx,my+1);
-    erasePoint(mx+1,my+1);
-    erasePoint(mx+2,my+1);
-    mx = 1;
-    }
     erasePoint(mx,my);
     erasePoint(mx+1,my);
     erasePoint(mx,my+1);
@@ -50,6 +42,9 @@ void erasePoint(int x, int y){
 }
      
 void move(){
+	if(outMap(mx,my){
+		mx = 1;
+	}
        mx ++;
      }
 };
