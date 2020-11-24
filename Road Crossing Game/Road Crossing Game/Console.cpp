@@ -30,7 +30,7 @@ void DrawBoard(int x, int y, int width, int height, int curPosX = 0, int curPosY
 		GotoXY(x, i); printf("|");
 		GotoXY(x + width, i); printf("|");
 	}
-	GotoXY(curPosX, curPosY);
+	//GotoXY(curPosX, curPosY);
 }
 
 void clrscr()
@@ -56,8 +56,8 @@ void TextColor(int color)
 
 void ConsoleMain() {
 	FixConsoleWindow();
-	GotoXY(1, 1);
+	/*GotoXY(1, 1);
 	DrawBoard(0, 0, 150, 20, 0, 0);
 	for (int i = 0; i < 20; i++)
-		cout << endl;
+		cout << endl;*/
 }
