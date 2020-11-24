@@ -1,8 +1,8 @@
 #ifndef _TRUCK_H
 #define _TRUCK_H_
 
+#include "Console.h"
 #include "Vehicle.h"
-
 class Truck : public Vehicle {
 public:
 Truck(){
@@ -25,7 +25,7 @@ void draw(){
 }
      
 void drawPoint(int x,int y){
-  gotoXY(x,y);
+	GotoXY(x,y);
   cout << (char)223;
 }   
      
@@ -39,7 +39,7 @@ void erase(){
   }
     
 void erasePoint(int x, int y){
-  goToXY(x,y);
+	GotoXY(x,y);
   cout << " ";
 }
      

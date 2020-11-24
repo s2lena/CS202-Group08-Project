@@ -2,6 +2,7 @@
 #define _CAR_H_
 
 #include "Vehicle.h"
+#include "Console.h"
 
 class Car : public Vehicle {
 public:
@@ -24,7 +25,7 @@ void draw(){
      }
      
 void drawPoint(int x,int y){
-       gotoXY(x,y);
+	GotoXY(x,y);
        cout << (char)223;
      }   
      
@@ -37,7 +38,7 @@ void erase(){
      }
 
 void erasePoint(int x, int y){
-  goToXY(x,y);
+	GotoXY(x,y);
   cout << " ";
 }
      
