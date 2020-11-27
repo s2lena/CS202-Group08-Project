@@ -16,4 +16,6 @@ git checkout ... (nhảy vào branch)
 
 
 git log (check commit in local)
-git status
+
+
+Helluu
