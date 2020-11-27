@@ -23,12 +23,12 @@ void People::Down(int) {
 }
 
 bool People::isImpact(const Vehicle*& a) {
-	if (mx == a->mx && my = a->my) return true;
+	if (mx == a->mx && my == a->my) return true;
 	return false;
 }
 
 bool People::isImpact(const Animal*& a) {
-	if (mx == a->mx && my = a->my) return true;
+	if (mx == a->mx && my == a->my) return true;
 	return false;
 }
 
