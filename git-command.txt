@@ -14,9 +14,8 @@ git branch ... (tạo branch mới)
 git checkout ... (nhảy vào branch)
 
 
-
 git log (check commit in local)
 
+git status
+// hello  
 
-Helluu
-Dui
