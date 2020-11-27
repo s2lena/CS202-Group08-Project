@@ -1,8 +1,8 @@
 #ifndef _TRUCK_H
 #define _TRUCK_H_
 
+#include "Console.h"
 #include "Vehicle.h"
-
 class Truck : public Vehicle {
 public:
 Truck(){
@@ -25,20 +25,11 @@ void draw(){
 }
      
 void drawPoint(int x,int y){
-  gotoXY(x,y);
+	GotoXY(x,y);
   cout << (char)223;
 }   
      
 void erase(){
-  if(outMap(mx,my)){
-    erasePoint(mx+1,my);
-    erasePoint(mx+2,my);
-    erasePoint(mx,my+1);
-    erasePoint(mx+1,my+1);
-    erasePoint(mx+2,my+1);
-    erasePoint(mx+3,my+1);
-    mx = 1;
-    }
     erasePoint(mx+1,my);
     erasePoint(mx+2,my);
     erasePoint(mx,my+1);
@@ -48,11 +39,14 @@ void erase(){
   }
     
 void erasePoint(int x, int y){
-  goToXY(x,y);
+	GotoXY(x,y);
   cout << " ";
 }
      
 void move(){
+  if(outMap(mx,my){
+    mx = 1;
+  }
   mx ++;
 }
 
