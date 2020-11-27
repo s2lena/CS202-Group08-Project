@@ -33,14 +33,11 @@ bool People::isImpact(const Animal*& a) {
 }
 
 bool People::isFinish() {
-	return false;
+	return state;
 }
 
 bool People::isDead() {
-	if (this->isImpact()) {
-		this->state = false;
-		return true;
-	}
+	return state;
 }
 
 void People::Erase() {
@@ -48,5 +45,6 @@ void People::Erase() {
 }
 
 void People::Draw() {
-
+	GotoXY(45, 20);
+	cout << "Y";
 }
