@@ -8,6 +8,10 @@ class Dinosaur : public Animal {
 public:
 	static const int size = 3;
 	Dinosaur() {};
+	Dinosaur(int x, int y) {
+		a.x = x;
+		a.y = y;
+	}
 	void Draw() {
 		const int tmp = WIDTH - size+1;
 		if (isValid(a.x, a.y)) {

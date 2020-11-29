@@ -20,6 +20,7 @@ public:
 	bool isDead();
 	void Erase();
 	void Draw();
+	void Reset();
 };
 
 #endif // _PEOPLE_H_
