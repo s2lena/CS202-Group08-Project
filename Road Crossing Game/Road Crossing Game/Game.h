@@ -31,6 +31,10 @@ public:
 	vector<Truck> GetTruck();
 	vector<Bird> GetBird();
 	vector<Dinosaur> GetDinosaur();
+	void UpdatePosPeople(char moving);
+	void UpdatePosAnimal();
+	void UpdatePosVehicle();
+
 	void ResetGame(); 
 	void ExitGame(HANDLE); 
 	void StartGame();

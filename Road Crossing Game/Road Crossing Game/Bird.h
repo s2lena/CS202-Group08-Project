@@ -46,10 +46,10 @@ public:
 
 		}
 	}
-	void Move(int x, int y) {
-		if (isValid(x, y)) {
-			this->a.x = x;
-			this->a.y = y;
+	void Move() {
+		this->a.x++;
+		if (isValid(this->a.x, this->a.y)) {
+			this->a.x = 1;
 		}
 	}
 	void Erase() {
