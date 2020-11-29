@@ -9,7 +9,7 @@ public:
 		a.x = -3;
 		a.y = -3;
 	}
-	virtual void Move(int, int) = 0;
+	virtual void Move() = 0;
 	virtual void Draw() = 0;
 	virtual void Erase() = 0;
 	bool isValid(int x, int y) {

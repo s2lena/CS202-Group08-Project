@@ -43,6 +43,51 @@ vector<Dinosaur> Game::GetDinosaur() {
 	return dinosaur;
 }
 
+void Game::UpdatePosPeople(char moving)
+{
+	if (moving == 'a' || moving == 'A')
+	{
+		people.Left(1);
+	}
+	if (moving == 'w' || moving == 'W')
+	{
+		people.Up(1);
+	}
+	if (moving == 'd' || moving == 'D')
+	{
+		people.Right(1);
+	}
+	if (moving == 's' || moving == 'S')
+	{
+		people.Down(1);
+	}
+}
+
+void  Game::UpdatePosAnimal()
+{
+	for (int i = 0; i < level; i++)
+	{
+		bird[i].Move();
+	}
+	for (int i = 0; i < level; i++)
+	{
+		dinosaur[i].Move();
+	}
+}
+
+void Game::UpdatePosVehicle()
+{
+	for (int i = 0; i < level; i++)
+	{
+		car[i].move();
+	}
+	for (int i = 0; i < level; i++)
+	{
+		truck[i].move();
+
+	}
+}
+
 void Game::CreateGame(int lv) {
 	level = lv;
 	for (int i = 0; i < lv; i++) {
