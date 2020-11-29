@@ -2,9 +2,7 @@
 #include "Console.h"
 
 
-People::People() {
-
-}
+People::People() : mx(45), my(20), state(true) {};
 
 void People::Up(int) {
 	if (my != 0) my--;
@@ -28,7 +26,7 @@ bool People::isImpact(const Vehicle*& a) {
 }
 
 bool People::isImpact(const Animal*& a) {
-	if (mx == a->mx && my == a->my) return true;
+	if (mx == a->a.x && my == a->a.y) return true;
 	return false;
 }
 
@@ -48,5 +46,16 @@ void People::Erase() {
 }
 
 void People::Draw() {
+<<<<<<< Updated upstream
 
+=======
+	GotoXY(45, 20);
+	cout << "Y";
+}
+
+void People::Reset() {
+	mx = 45;
+	my = 20;
+	state = true;
+>>>>>>> Stashed changes
 }

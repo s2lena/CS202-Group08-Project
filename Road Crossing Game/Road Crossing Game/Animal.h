@@ -3,9 +3,8 @@
 
 #include "Console.h"
 class Animal {
-protected:
-	Point a;
 public:
+	Point a;
 	Animal() {
 		a.x = -3;
 		a.y = -3;
