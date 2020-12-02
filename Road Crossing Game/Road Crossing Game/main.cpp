@@ -1,90 +1,113 @@
 #include "Console.h"
-#include "Dinosaur.h"
-#include "Car.h"
-#include "Bird.h"
+#include "Game.h"
+#include <thread>
 
-const int WIDTH=90;
+const int WIDTH=100;
 const int HEIGHT=20;
-Point aArray[10];
-void Move(int& x, int& y) {
-	if (x - 3 == 0) {
-		x = 98;
-		system("cls");
-	}
-	else {
-		x = x - 1;
-	}
-}
-void Erase(int x, int y) {
-	GotoXY(x, y); printf(" ");
-	GotoXY(x, y - 1); printf(" ");
-}
-void Draw(int x, int y) {
-	GotoXY(x, y); cout << (char)254u;
-	GotoXY(x - 1, y); cout << (char)254u;
-	GotoXY(x - 2, y); cout << (char)254u;
-	GotoXY(x - 1, y - 1); cout << (char)254u;
-	GotoXY(x, y - 1); cout << (char)254u;
-}
-void ClearScreen() {
-	COORD Position;
-	Position.X = 0;
-	Position.Y = 0;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Position);
-}
+Game* game;
+int MOVING;
+
 void Subthread() {
-	/*int x = 90; int y = 10;
-	int* a = new int[10];
-	for (int i = 0; i < 10; i++)
-		a[i] = 90 - i * 8;
 	while (1) {
-		for (int i = 0; i < 10; i++) {
-			Erase(a[i], y);
-			Move(a[i], y);
-			Draw(a[i], y);
+		if (!game->GetPeople().isDead()) {
+			if (MOVING)
+				game->GetPeople().Erase();
+			game->UpdatePosPeople(MOVING);
+			game->GetPeople().Draw();
 		}
-			Sleep(10);
-			ClearScreen();
-		 DrawBoard(0, 0, WIDTH, HEIGHT, 0, 0);
-	}*/
-	while (1) {
-		/*DrawBoard(0, 0, WIDTH, HEIGHT, 0, 0);
-		for (int i = 0; i < 10; i++) {
-			Dinosaur a;
-			a.Erase();
-			a.Move(89, 2);
-			a.Draw();
-			Sleep(10);
-		}*/
-		DrawBoard(0, 0, WIDTH, HEIGHT, 0, 0);
-		Bird a;
-		a.Erase();
-		a.Move(0, 3);
-		a.Draw();
-		ClearScreen();
+		MOVING = 0;
+		game->EraseGame();
+		game->UpdatePosVehicle();
+		//game->UpdatePosAnimal();
+		game->DrawGame();
+
+		if (game->IsImpact()) {
+			game->ChangeState();
+			GotoXY(0, 20);
+			system("PAUSE");
+		}
+		if (game->GetPeople().isFinish()) {
+			game->LevelUp();
+			clrscr();
+			DrawCrossWalk();
+		}
+		Sleep(100);
 	}
 }
-void ExitGame(HANDLE t1) {
-	//GotoXY(1, 15);
-	/*for (int i = 0; i < 10; i++)
-		cout << endl;*/
-	TerminateThread(t1, 0);
-}
 
-int main()
-{
-	int temp;
-	ConsoleMain();
-	thread t1(Subthread);
+int main() {
+	FixConsoleWindow();
+	game = new Game;
+	int tmp;
+	do {
+		clrscr();
+		tmp = game->LogIn();
+	} while (game->SetGame(tmp));
+	clrscr();
+	int c = 0;
+	MOVING = 0;
+	bool pause = false;
+	DrawCrossWalk(); 
+	thread t(Subthread);
 	while (1) {
-		temp = toupper(_getch());
-		if (temp == 'Q') {
-			ExitGame(t1.native_handle());
-			break;
+		c = 0;
+		if (!game->GetPeople().isDead()) {
+			switch ((c = _getch())) {
+			case KEY_UP:
+				MOVING = 1;
+				break;
+			case KEY_DOWN:
+				MOVING = 2;
+				break;
+			case KEY_RIGHT:
+				MOVING = 3;
+				break;
+			case KEY_LEFT:
+				MOVING = 4;
+				break;
+			case KEY_L:
+				game->PauseGame(t.native_handle());
+				if (!game->SaveGame()) {
+					clrscr();
+					DrawCrossWalk();
+					game->DrawGame();
+					game->ResumeGame(t.native_handle());
+				}
+				else
+					game->ChangeState();
+				break;
+			case KEY_T:
+				game->LoadGame();
+				break;
+			case KEY_P:
+				if (!pause) {
+					game->PauseGame(t.native_handle());
+					pause = true;
+				}
+				if (pause) {
+					game->ResumeGame(t.native_handle());
+					pause = false;
+				}
+				break;
+			case KEY_M:
+				system("cls");
+				do {
+					clrscr();
+					tmp = game->LogIn();
+				} while (game->SetGame(tmp));
+				break;
+			default:
+				game->ResumeGame(t.native_handle());
+				break;
+			}
+		}
+		else {
+			game->PauseGame(t.native_handle());
+			int pos = ChoiceFrame("Do you want to reset?");
+			if (!pos)
+				game->ResetGame();
+			game->ExitGame(t.native_handle());
 		}
 	}
-	t1.join();
-
-
 	return 0;
 }

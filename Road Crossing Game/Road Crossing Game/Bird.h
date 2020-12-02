@@ -47,9 +47,9 @@ public:
 		}
 	}
 	void Move() {
-		this->a.x++;
+		this->a.x--;
 		if (isValid(this->a.x, this->a.y)) {
-			this->a.x = 1;
+			this->a.x = 100;
 		}
 	}
 	void Erase() {
@@ -84,6 +84,15 @@ public:
 			GotoXY(a.x, a.y - 1);
 			cout << "   " << endl;
 		}
+	}
+	bool Impact(int x, int y) {
+		int check_x[3] = { x , x + 1 , x + 2 };
+		int check_y[3] = { y - 1, y, y - 1 };
+		for (int i = 0; i < 2; i++)
+			for (int j = 0; j < 3; j++)
+				if (x + i == check_x[j] && y == check_y[j])
+					return true;
+		return false;
 	}
 };
 
