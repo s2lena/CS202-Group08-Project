@@ -4,6 +4,7 @@
 
 const int WIDTH=100;
 const int HEIGHT=20;
+const int LEFT = 30;
 Game* game;
 int MOVING;
 
@@ -18,7 +19,7 @@ void Subthread() {
 		MOVING = 0;
 		game->EraseGame();
 		game->UpdatePosVehicle();
-		//game->UpdatePosAnimal();
+		game->UpdatePosAnimal();
 		game->DrawGame();
 
 		if (game->IsImpact()) {
@@ -29,7 +30,7 @@ void Subthread() {
 		if (game->GetPeople().isFinish()) {
 			game->LevelUp();
 			clrscr();
-			DrawCrossWalk();
+			//DrawCrossWalk();
 		}
 		Sleep(100);
 	}
