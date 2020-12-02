@@ -241,3 +241,14 @@ void DrawCrossWalk() {
 		}
 	}
 }
+
+void EndFrame() {
+	system("cls");
+	DrawBoard();
+	int x = 54;
+	GotoXY(x, 8);
+	cout << "(o^-^o) WE PASS CS202 (o^-^o)" << endl;
+	GotoXY(x - 3, 9);
+	cout << "(o^-^o) HAVE A NICE VACATION (o^-^o)" << endl;
+	GotoXY(0, 20);
+}
