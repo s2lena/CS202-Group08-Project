@@ -40,10 +40,10 @@ bool Game::IsImpact() {
 			check = true;
 		else if (this->car[i].Impact(this->people.mx, this->people.my))
 			check = true;
-		/*else if (this->bird[i].Impact(this->people.mx, this->people.my))
+		else if (this->bird[i].Impact(this->people.mx, this->people.my))
 			check =  true;
 		else if (this->dinosaur[i].Impact(this->people.mx, this->people.my))
-			check = true;*/
+			check = true;
 		if (check)
 			break;
 	}
