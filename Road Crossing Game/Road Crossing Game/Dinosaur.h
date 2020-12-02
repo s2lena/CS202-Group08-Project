@@ -88,8 +88,8 @@ public:
 		}
 	}
 	bool Impact(int x, int y) {
-		int check_x[5] = { x , x + 1 , x + 1, x + 2, x + 2 };
-		int check_y[5] = { y, y, y - 1, y - 1, y - 2};
+		int check_x[5] = { this->a.x , this->a.x + 1 , this->a.x + 1, this->a.x + 2, this->a.x + 2 };
+		int check_y[5] = { this->a.y, this->a.y, this->a.y - 1, this->a.y - 1, this->a.y - 2};
 		for (int i = 0; i < 2; i++)
 			for (int j = 0; j < 5; j++)
 				if (x + i == check_x[j] && y == check_y[j])
