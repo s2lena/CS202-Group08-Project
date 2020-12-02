@@ -41,7 +41,7 @@ public:
 	void LoadGame();
 	bool SaveGame();
 	void CreateGame(int lv);
-	void LevelUp();
+	bool LevelUp();
 	int LogIn();
 	bool SetGame(int a);
 	bool IsImpact();

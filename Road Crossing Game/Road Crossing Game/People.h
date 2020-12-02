@@ -1,6 +1,8 @@
 #ifndef _PEOPLE_H_
 #define _PEOPLE_H_
 
+#include "Console.h"5
+
 class People {
 public:
 	int mx;

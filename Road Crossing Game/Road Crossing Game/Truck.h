@@ -25,7 +25,6 @@ public:
      
     void drawPoint(int x,int y, int t){
 	    GotoXY(x,y);
-        TextColor(7);
         if (y == t)
             cout << (char)219;
         else
@@ -42,7 +41,7 @@ public:
     
     void erasePoint(int x, int y){
 	    GotoXY(x,y);
-      cout << " ";
+        cout << " ";
     }
      
     void move(){
