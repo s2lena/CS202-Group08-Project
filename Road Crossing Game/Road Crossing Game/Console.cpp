@@ -40,7 +40,8 @@ void DrawBoard() {
 	cout << "       INSTRUCTION:" << endl;
 	cout << "   Save Game    :   L" << endl;
 	cout << "   Load Game    :   T" << endl;
-	cout << "   Pause/Resume :   P" << endl;
+	cout << "   Pause        :   P" << endl;
+	cout << "   Resume       :   Enter" << endl;
 	cout << "   Menu         :   M" << endl;
 
 	GotoXY(0, 13);
@@ -93,6 +94,22 @@ void TextColor(int color)
 }
 
 void SaveFile(string str) {
+	vector<string> list;
+	string tmp;
+	ifstream ifs;
+	ifs.open("Data.txt");
+	while (!ifs.eof()) {
+		getline(ifs, tmp);
+		if (tmp != "")
+			list.push_back(tmp);
+		else
+			break;
+		tmp.erase(tmp.begin(), tmp.end());
+	}
+	ifs.close();
+	for (int i = 0; i < list.size(); i++)
+		if (list[i] == str)
+			return;
 	ofstream ofs;
 	ofs.open("Data.txt", ios::app);
 	ofs << str << endl;
@@ -157,7 +174,7 @@ string LoadFile() {
 bool ChoiceFrame(string str) {
 	DrawFrame(false);
 	bool check = true;
-	int c = 0; int x = 55; int y = 9;
+	int c = 0; int x = 54; int y = 9;
 	int pos = 0;
 	vector<string> list = { " YES ", " NO " };
 	while (check)

@@ -37,9 +37,9 @@ public:
 		erasePoint(mx + 1, my);
 		erasePoint(mx + 2, my);
 		erasePoint(mx, my + 1);
-		/*erasePoint(mx + 1, my + 1);
+		erasePoint(mx + 1, my + 1);
 		erasePoint(mx + 2, my + 1);
-		erasePoint(mx + 3, my + 1);*/
+		erasePoint(mx + 3, my + 1);
 	}
 
 	void erasePoint(int x, int y) {

@@ -77,6 +77,7 @@ void Game::UpdatePosPeople(short i)
 	default:
 		break;
 	}
+
 }
 
 void  Game::UpdatePosAnimal()
@@ -122,15 +123,22 @@ void Game::CreateGame(int lv) {
 
 void Game::ResetGame() {
 	level = 1;
+	truck.erase(truck.begin(), truck.end());
+	car.erase(car.begin(), car.end());
+	bird.erase(bird.begin(), bird.end());
+	dinosaur.erase(dinosaur.begin(), dinosaur.end());
 	this->CreateGame(level);
 	this->people.Reset();
 }
 
-void Game::LevelUp() {
+bool Game::LevelUp() {
+	bool check = false;
 	if (this->level == 10) {
-		GotoXY(55, 10);
-		cout << "Do you want to reset?";
-		int pos = ChoiceFrame("        FINISH       ");
+		GotoXY(65, 10);
+		cout << "FINISH";
+		GotoXY(55, 11);
+		cout << "Congratulation!!";
+		check = true;
 	}
 	else {
 		this->level++;
@@ -141,13 +149,21 @@ void Game::LevelUp() {
 		this->people.Reset();
 		this->CreateGame(level);
 	}
+	return check;
 }
 
 void Game::ExitGame(HANDLE t)
 {
 	TerminateThread(t, 0);
 	system("cls");
-	cout << "The game end" << endl;
+	DrawBoard();
+	int x = 54;
+	GotoXY(x, 8);
+	cout << "(o^-^o) WE PASS CS202 (o^-^o)" << endl;
+	GotoXY(x - 3, 9);
+	cout << "(o^-^o) HAVE A NICE VACATION (o^-^o)" << endl;
+	GotoXY(0, 20);
+	exit(0);
 }
 void Game::PauseGame(HANDLE t)
 {
@@ -196,7 +212,6 @@ void Game::LoadGame() {
 	}
 	else
 		this->CreateGame(1);
-	clrscr();
 }
 
 bool Game::SaveGame() {
@@ -216,18 +231,18 @@ bool Game::SaveGame() {
 	ofs.open(tmp);
 	ofs << this->level << endl;
 	for (int i = 0; i < this->truck.size(); i++)
-		cout << truck[i].mx << " " << truck[i].my << " ";
-	cout << endl;
+		ofs << truck[i].mx << " " << truck[i].my << " ";
+	ofs << endl;
 	for (int i = 0; i < this->car.size(); i++)
-		cout << car[i].mx << " " << car[i].my << " ";
-	cout << endl;
+		ofs << car[i].mx << " " << car[i].my << " ";
+	ofs << endl;
 	for (int i = 0; i < this->bird.size(); i++)
-		cout << bird[i].a.x << " " << bird[i].a.y << " ";
-	cout << endl;
+		ofs << bird[i].a.x << " " << bird[i].a.y << " ";
+	ofs << endl;
 	for (int i = 0; i < this->dinosaur.size(); i++)
-		cout << dinosaur[i].a.x << " " << dinosaur[i].a.y << " ";
-	cout << endl;
-	cout << this->people.mx << " " << this->people.my << this->people.state << endl;
+		ofs << dinosaur[i].a.x << " " << dinosaur[i].a.y << " ";
+	ofs << endl;
+	ofs << this->people.mx << " " << this->people.my << " " << this->people.state << endl;
 	ofs.close();
 	return ChoiceFrame("Do you want to continue?");
 }

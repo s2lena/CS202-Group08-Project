@@ -23,13 +23,14 @@ void Subthread() {
 
 		if (game->IsImpact()) {
 			game->ChangeState();
-			GotoXY(0, 20);
-			system("PAUSE");
 		}
 		if (game->GetPeople().isFinish()) {
-			game->LevelUp();
-			clrscr();
-			DrawCrossWalk();
+			if (game->LevelUp())
+				game->ChangeState();
+			else {
+				clrscr();
+				DrawCrossWalk();
+			}
 		}
 		Sleep(100);
 	}
@@ -43,70 +44,76 @@ int main() {
 		clrscr();
 		tmp = game->LogIn();
 	} while (game->SetGame(tmp));
-	clrscr();
-	int c = 0;
-	MOVING = 0;
-	bool pause = false;
-	DrawCrossWalk(); 
-	thread t(Subthread);
-	while (1) {
-		c = 0;
-		if (!game->GetPeople().isDead()) {
-			switch ((c = _getch())) {
-			case KEY_UP:
-				MOVING = 1;
-				break;
-			case KEY_DOWN:
-				MOVING = 2;
-				break;
-			case KEY_RIGHT:
-				MOVING = 3;
-				break;
-			case KEY_LEFT:
-				MOVING = 4;
-				break;
-			case KEY_L:
-				game->PauseGame(t.native_handle());
-				if (!game->SaveGame()) {
+	if (tmp != 3) {
+		clrscr();
+		int c = 0;
+		MOVING = 0;
+		DrawCrossWalk();
+		thread t(Subthread);
+		while (1) {
+			c = 0;
+			if (!game->GetPeople().isDead()) {
+				switch ((c = _getch())) {
+				case KEY_UP:
+					MOVING = 1;
+					break;
+				case KEY_DOWN:
+					MOVING = 2;
+					break;
+				case KEY_RIGHT:
+					MOVING = 3;
+					break;
+				case KEY_LEFT:
+					MOVING = 4;
+					break;
+				case KEY_L:
+					game->PauseGame(t.native_handle());
+					if (!game->SaveGame()) {
+						clrscr();
+						DrawCrossWalk();
+						game->DrawGame();
+						game->ResumeGame(t.native_handle());
+					}
+					else
+						game->ChangeState();
+					break;
+				case KEY_T:
+					game->PauseGame(t.native_handle());
+					game->LoadGame();
 					clrscr();
 					DrawCrossWalk();
 					game->DrawGame();
 					game->ResumeGame(t.native_handle());
+					break;
+				case KEY_P:
+					game->PauseGame(t.native_handle());
+					break;
+				case KEY_M:
+					system("cls");
+					do {
+						clrscr();
+						tmp = game->LogIn();
+					} while (game->SetGame(tmp));
+					break;
+				default:
+					game->ResumeGame(t.native_handle());
+					break;
+				}
+			}
+			else {
+				game->PauseGame(t.native_handle());
+				int pos = ChoiceFrame("Do you want to reset?");
+				if (!pos) {
+					clrscr();
+					DrawCrossWalk();
+					game->ResetGame();
+					game->DrawGame();
+					game->ResumeGame(t.native_handle());
 				}
 				else
-					game->ChangeState();
-				break;
-			case KEY_T:
-				game->LoadGame();
-				break;
-			case KEY_P:
-				if (!pause) {
-					game->PauseGame(t.native_handle());
-					pause = true;
-				}
-				if (pause) {
-					game->ResumeGame(t.native_handle());
-					pause = false;
-				}
-				break;
-			case KEY_M:
-				system("cls");
-				do {
-					clrscr();
-					tmp = game->LogIn();
-				} while (game->SetGame(tmp));
-				break;
-			default:
-				game->ResumeGame(t.native_handle());
-				break;
+					game->ExitGame(t.native_handle());
+
 			}
-		}
-		else {
-			game->PauseGame(t.native_handle());
-			int pos = ChoiceFrame("Do you want to reset?");
-			if (!pos)
-				game->ResetGame();
-			game->ExitGame(t.native_handle());
 		}
 	}
 	return 0;

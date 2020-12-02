@@ -5,6 +5,8 @@
 People::People() : mx(64), my(20) { state = true; };
 
 void People::Up(int) {
+	if (my == 3 || my == 7 || my == 11 || my == 15 || my == 19)
+		DrawCrossWalk();
 	if (my != 0) my--;
 }
 
@@ -17,6 +19,8 @@ void People::Right(int) {
 }
 
 void People::Down(int) {
+	if (my == 3 || my == 7 || my == 11 || my == 15 || my == 19)
+		DrawCrossWalk();
 	if (my != 30) my++;
 }
 
@@ -43,7 +47,7 @@ void People::Draw() {
 }
 
 void People::Reset() {
-	mx = 45;
+	mx = 65;
 	my = 20;
 	state = true;
 }
