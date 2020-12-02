@@ -2,7 +2,7 @@
 #include "Console.h"
 
 
-People::People() : mx(45), my(20), state(true) {};
+People::People() : mx(64), my(20) { state = true; };
 
 void People::Up(int) {
 	if (my != 0) my--;
@@ -13,38 +13,33 @@ void People::Left(int) {
 }
 
 void People::Right(int) {
-	if (mx != 90) mx++;
+	if (mx != 100) mx++;
 }
 
 void People::Down(int) {
-	if (my != 50) my++;
-}
-
-bool People::isImpact(const Vehicle*& a) {
-	if (mx == a->mx && my == a->my) return true;
-	return false;
-}
-
-bool People::isImpact(const Animal*& a) {
-	if (mx == a->a.x && my == a->a.y) return true;
-	return false;
+	if (my != 30) my++;
 }
 
 bool People::isFinish() {
-	return state;
+	if (this->my == 0)
+		return true;
+	return false;
 }
 
 bool People::isDead() {
-	return state;
+	return !state;
 }
 
 void People::Erase() {
-
+	GotoXY(this->mx, this->my);
+	cout << " " << " ";
 }
 
 void People::Draw() {
-	GotoXY(45, 20);
-	cout << "Y";
+	GotoXY(this->mx, this->my);
+	TextColor(243);
+	cout << (char)223 << (char)223;
+	TextColor(7);
 }
 
 void People::Reset() {

@@ -17,24 +17,29 @@ public:
 	}
 
 	void draw() {
-		drawPoint(mx, my);
-		drawPoint(mx + 1, my);
-		drawPoint(mx, my + 1);
-		drawPoint(mx + 1, my + 1);
-		drawPoint(mx + 2, my + 1);
+		drawPoint(mx + 1, my, my);
+		drawPoint(mx + 2, my, my);
+		drawPoint(mx, my + 1, my);
+		drawPoint(mx + 1, my + 1, my);
+		drawPoint(mx + 2, my + 1, my);
+		drawPoint(mx + 3, my + 1, my);
 	}
 
-	void drawPoint(int x, int y) {
+	void drawPoint(int x, int y, int t) {
 		GotoXY(x, y);
-		cout << (char)223;
+		if (y == t)
+			cout << (char)220;
+		else
+			cout << (char)223;
 	}
 
 	void erase() {
-		erasePoint(mx, my);
 		erasePoint(mx + 1, my);
+		erasePoint(mx + 2, my);
 		erasePoint(mx, my + 1);
-		erasePoint(mx + 1, my + 1);
+		/*erasePoint(mx + 1, my + 1);
 		erasePoint(mx + 2, my + 1);
+		erasePoint(mx + 3, my + 1);*/
 	}
 
 	void erasePoint(int x, int y) {
@@ -43,10 +48,21 @@ public:
 	}
 
 	void move() {
-		if (outMap(mx, my) ){
-			mx = 1;
-		}
 		mx++;
+		if (outMap(mx, my) ){
+			mx = 30;
+			DrawCrossWalk();
+		}
+	}
+	bool Impact(int x, int y) {
+		int check_x[6] = { this->mx + 1, this->mx + 2, this->mx, this->mx + 1, this->mx + 2, this->mx + 3 };
+		int check_y[6] = { this->my, this->my, this->my + 1, this->my + 1, this->my + 1, this->my + 1 };
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 6; j++)
+				if (x + i == check_x[j] && y == check_y[j])
+					return true;
+		}
+		return false;
 	}
 };
 

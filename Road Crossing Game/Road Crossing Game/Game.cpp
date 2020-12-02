@@ -2,18 +2,28 @@
 
 Game::Game() {
 	level = 1;
-};
+}
 
 void Game::DrawGame() {
 	for (int i = 0; i < truck.size(); i++)
 		truck[i].draw();
 	for (int i = 0; i < car.size(); i++)
 		car[i].draw();
-	for (int i = 0; i < bird.size(); i++)
-		bird[i].Draw(); 
-	for (int i = 0; i < dinosaur.size(); i++)
-		dinosaur[i].Draw();
-	people.Draw();
+	//for (int i = 0; i < bird.size(); i++)
+		//bird[i].Draw(); 
+	//for (int i = 0; i < dinosaur.size(); i++)
+		//dinosaur[i].Draw();
+}
+
+void Game::EraseGame() {
+	for (int i = 0; i < truck.size(); i++)
+		truck[i].erase();
+	for (int i = 0; i < car.size(); i++)
+		car[i].erase();
+	//for (int i = 0; i < bird.size(); i++)
+		//bird[i].Erase();
+	//for (int i = 0; i < dinosaur.size(); i++)
+		//dinosaur[i].Erase();
 }
 
 Game::~Game() {
@@ -23,43 +33,49 @@ Game::~Game() {
 	dinosaur.erase(dinosaur.begin(), dinosaur.end());
 }
 
+bool Game::IsImpact() {
+	bool check = false;
+	for (int i = 0; i < this->level; i++) {
+		if (this->truck[i].Impact(this->people.mx, this->people.my))
+			check = true;
+		else if (this->car[i].Impact(this->people.mx, this->people.my))
+			check = true;
+		//else if (this->bird[i].Impact(this->people.mx, this->people.my))
+			//check =  true;
+		//else if (this->dinosaur[i].Impact(this->people.mx, this->people.my))
+			//check = true;
+		if (check)
+			break;
+	}
+	return check;
+}
+
+void Game::ChangeState() {
+	people.state = false;
+}
+
 People Game::GetPeople() {
-	return people;
+	return this->people;
 }
 
-vector<Car> Game::GetCar() {
-	return car;
-}
-
-vector<Truck> Game::GetTruck() {
-	return truck;
-}
-
-vector<Bird> Game::GetBird() {
-	return bird;
-}
-
-vector<Dinosaur> Game::GetDinosaur() {
-	return dinosaur;
-}
-
-void Game::UpdatePosPeople(char moving)
+void Game::UpdatePosPeople(short i)
 {
-	if (moving == 'a' || moving == 'A')
+	switch (i)
 	{
-		people.Left(1);
-	}
-	if (moving == 'w' || moving == 'W')
-	{
-		people.Up(1);
-	}
-	if (moving == 'd' || moving == 'D')
-	{
-		people.Right(1);
-	}
-	if (moving == 's' || moving == 'S')
-	{
-		people.Down(1);
+	case 1:
+		this->people.Up(1);
+		break;
+	case 2:
+		this->people.Down(1);
+		break;
+	case 3:
+		this->people.Right(1);
+		break;
+	case 4:
+		this->people.Left(1);
+		break;
+	default:
+		break;
 	}
 }
 
@@ -91,8 +107,8 @@ void Game::UpdatePosVehicle()
 void Game::CreateGame(int lv) {
 	level = lv;
 	for (int i = 0; i < lv; i++) {
-		int x_vehicle = 3 * i + 5;
-		int x_animal = WIDTH - 3 * i - 5;
+		int x_vehicle = 6 * i + 30;
+		int x_animal = WIDTH - 6 * i;
 		Truck t(x_vehicle, y_truck);
 		Car c(x_vehicle, y_car);
 		Bird b(x_animal, y_bird);
@@ -110,6 +126,188 @@ void Game::ResetGame() {
 	this->people.Reset();
 }
 
-void Game::StartGame() {
+void Game::LevelUp() {
+	if (this->level == 10) {
+		GotoXY(55, 10);
+		cout << "Do you want to reset?";
+		int pos = ChoiceFrame("        FINISH       ");
+	}
+	else {
+		this->level++;
+		truck.erase(truck.begin(), truck.end());
+		car.erase(car.begin(), car.end());
+		bird.erase(bird.begin(), bird.end());
+		dinosaur.erase(dinosaur.begin(), dinosaur.end());
+		this->people.Reset();
+		this->CreateGame(level);
+	}
+}
 
+void Game::ExitGame(HANDLE t)
+{
+	TerminateThread(t, 0);
+	system("cls");
+	cout << "The game end" << endl;
+}
+void Game::PauseGame(HANDLE t)
+{
+	SuspendThread(t);
+}
+void Game::ResumeGame(HANDLE t)
+{
+	ResumeThread(t);
+}
+
+
+void Game::LoadGame() {
+	string str = LoadFile();
+	int x = 0; int y = 0;
+	TextColor(7);
+	if (str != "Exit") {
+		ifstream ifs;
+		ifs.open(str);
+		ifs >> this->level;
+		for (int i = 0; i < this->level; i++) {
+			ifs >> x >> y;
+			Truck t(x, y);
+			this->truck.push_back(t);
+		}
+
+		for (int i = 0; i < this->level; i++) {
+			ifs >> x >> y;
+			Car c(x, y);
+			this->car.push_back(c);
+		}
+
+		for (int i = 0; i < this->level; i++) {
+			ifs >> x >> y;
+			Bird b(x, y);
+			this->bird.push_back(b);
+		}
+
+		for (int i = 0; i < this->level; i++) {
+			ifs >> x >> y;
+			Dinosaur d(x, y);
+			this->dinosaur.push_back(d);
+		}
+
+		ifs >> people.mx >> people.my >> people.state;
+		ifs.close();
+	}
+	else
+		this->CreateGame(1);
+	clrscr();
+}
+
+bool Game::SaveGame() {
+	DrawFrame(false);
+	ofstream ofs;
+	string tmp;
+	int x = 53;  int y = 9;
+	GotoXY(x + 7, y);
+	cout << "SAVE GAME" << endl;
+	GotoXY(x, y + 1);
+	cout << "Input to save game: ";
+	GotoXY(x, y + 2);
+	cout << "Name: ";
+	getline(cin, tmp);
+	tmp = tmp + ".txt";
+	SaveFile(tmp);
+	ofs.open(tmp);
+	ofs << this->level << endl;
+	for (int i = 0; i < this->truck.size(); i++)
+		cout << truck[i].mx << " " << truck[i].my << " ";
+	cout << endl;
+	for (int i = 0; i < this->car.size(); i++)
+		cout << car[i].mx << " " << car[i].my << " ";
+	cout << endl;
+	for (int i = 0; i < this->bird.size(); i++)
+		cout << bird[i].a.x << " " << bird[i].a.y << " ";
+	cout << endl;
+	for (int i = 0; i < this->dinosaur.size(); i++)
+		cout << dinosaur[i].a.x << " " << dinosaur[i].a.y << " ";
+	cout << endl;
+	cout << this->people.mx << " " << this->people.my << this->people.state << endl;
+	ofs.close();
+	return ChoiceFrame("Do you want to continue?");
+}
+
+int Game::LogIn() {
+	DrawBoard();
+	ShowCur(false);
+	int t = 50;
+	int z = 5;
+	GotoXY(t, z);
+	for (int i = 0; i <= 30; i++) cout << "*";
+	for (int i = 1; i <= 4; i++) {
+		GotoXY(t, z + i); cout << "*";
+		GotoXY(t + 30, z + i); cout << "*";
+	}
+	GotoXY(t, z + 5);
+	for (int i = 0; i <= 30; i++) cout << "*";
+
+	vector<string> menu = { "New Game", "Load Game", "Setting","Exit" };
+	const int y = 6;
+	const int x = 62;
+	int pos = 0;
+	int c = 0;
+	bool check = true;
+	while (check)
+	{
+		c = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			if (i == pos)
+				TextColor(227);
+			else
+				TextColor(7);
+			GotoXY(x, y + i);
+			cout << menu[i];
+		}
+		switch ((c = _getch())) {
+		case KEY_UP:
+			pos = pos - 1;
+			break;
+		case KEY_DOWN:
+			pos = pos + 1;
+			break;
+		case KEY_ENTER:
+			check = false;
+			break;
+		default:
+			break;
+		}
+		if (pos < 0)
+			pos = pos + 4;
+		if (pos >= 4)
+			pos = pos - 4;
+	}
+	TextColor(7);
+	return pos;
+}
+
+bool Game::SetGame(int a) {
+	bool check = false;
+	clrscr();
+	switch (a) {
+	case 0:
+		this->CreateGame(1);
+		break;
+	case 1:
+		this->LoadGame();
+		break;
+	case 2:
+		GotoXY(62, 7);
+		cout << "Not update Settings" << endl;
+		GotoXY(0, 20);
+		system("PAUSE");
+		GotoXY(0, 20);
+		cout << "                                         " << endl;
+		check = true;
+		break;
+	default:
+		this->ChangeState();
+		break;
+	}
+	return check;
 }

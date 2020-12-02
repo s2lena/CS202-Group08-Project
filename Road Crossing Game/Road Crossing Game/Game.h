@@ -8,6 +8,8 @@
 #include "People.h"
 #include "Console.h"
 #include <vector>
+#include <string>
+#include <fstream>
 
 const int y_truck = 16;
 const int y_car = 8;
@@ -25,21 +27,26 @@ protected:
 public:
 	Game();
 	void DrawGame();
+	void EraseGame();
 	~Game();
 	People GetPeople();
-	vector<Car> GetCar();
-	vector<Truck> GetTruck();
-	vector<Bird> GetBird();
-	vector<Dinosaur> GetDinosaur();
-	void UpdatePosPeople(char moving);
+	void ChangeState();
+	void UpdatePosPeople(short i);
 	void UpdatePosAnimal();
 	void UpdatePosVehicle();
-
+	void PauseGame(HANDLE);
+	void ResumeGame(HANDLE);
 	void ResetGame(); 
 	void ExitGame(HANDLE); 
-	void StartGame();
+	void LoadGame();
+	bool SaveGame();
 	void CreateGame(int lv);
+	void LevelUp();
+	int LogIn();
+	bool SetGame(int a);
+	bool IsImpact();
 };
 
+void Subthread();
 
 #endif // _GAME_H_
