@@ -107,6 +107,10 @@ void Game::UpdatePosVehicle()
 
 void Game::CreateGame(int lv) {
 	level = lv;
+	truck.erase(truck.begin(), truck.end());
+	car.erase(car.begin(), car.end());
+	bird.erase(bird.begin(), bird.end());
+	dinosaur.erase(dinosaur.begin(), dinosaur.end());
 	for (int i = 0; i < lv; i++) {
 		int x_vehicle = 6 * i + 30;
 		int x_animal = WIDTH - 6 * i;
@@ -134,10 +138,6 @@ void Game::ResetGame() {
 bool Game::LevelUp() {
 	bool check = false;
 	if (this->level == 10) {
-		GotoXY(65, 10);
-		cout << "FINISH";
-		GotoXY(55, 11);
-		cout << "Congratulation!!";
 		check = true;
 	}
 	else {
@@ -155,14 +155,7 @@ bool Game::LevelUp() {
 void Game::ExitGame(HANDLE t)
 {
 	TerminateThread(t, 0);
-	system("cls");
-	DrawBoard();
-	int x = 54;
-	GotoXY(x, 8);
-	cout << "(o^-^o) WE PASS CS202 (o^-^o)" << endl;
-	GotoXY(x - 3, 9);
-	cout << "(o^-^o) HAVE A NICE VACATION (o^-^o)" << endl;
-	GotoXY(0, 20);
+	EndFrame();
 	exit(0);
 }
 void Game::PauseGame(HANDLE t)
@@ -247,6 +240,47 @@ bool Game::SaveGame() {
 	return ChoiceFrame("Do you want to continue?");
 }
 
+int Game::Setting() {
+	DrawFrame(false);
+	bool check = true;
+	int c = 0; int x = 51; int y = 9;
+	int pos = 0; int k = 10;
+	while (check)
+	{
+		c = 0;
+		TextColor(7);
+		GotoXY(55, y);
+		cout << "Choose your difficult: ";
+		for (int i = 0; i < k; i++) {
+			if (pos == i)
+				TextColor(227);
+			else
+				TextColor(7);
+			GotoXY(x + 3 * i, y + 2);
+			cout << i + 1;
+		}
+		switch ((c = _getch())) {
+		case KEY_RIGHT:
+			pos = pos + 1;
+			break;
+		case KEY_LEFT:
+			pos = pos - 1;
+			break;
+		case KEY_ENTER:
+			check = false;
+			break;
+		default:
+			break;
+		}
+		if (pos < 0)
+			pos = pos + k;
+		if (pos >= k)
+			pos = pos - k;
+	}
+	TextColor(7);
+	return pos + 1;
+}
+
 int Game::LogIn() {
 	DrawBoard();
 	ShowCur(false);
@@ -301,8 +335,7 @@ int Game::LogIn() {
 	return pos;
 }
 
-bool Game::SetGame(int a) {
-	bool check = false;
+void Game::SetGame(int a) {
 	clrscr();
 	switch (a) {
 	case 0:
@@ -312,17 +345,10 @@ bool Game::SetGame(int a) {
 		this->LoadGame();
 		break;
 	case 2:
-		GotoXY(62, 7);
-		cout << "Not update Settings" << endl;
-		GotoXY(0, 20);
-		system("PAUSE");
-		GotoXY(0, 20);
-		cout << "                                         " << endl;
-		check = true;
+		this->CreateGame(this->Setting());
 		break;
 	default:
 		this->ChangeState();
 		break;
 	}
-	return check;
 }

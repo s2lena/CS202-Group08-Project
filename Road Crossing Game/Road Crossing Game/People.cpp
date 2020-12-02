@@ -11,10 +11,14 @@ void People::Up(int) {
 }
 
 void People::Left(int) {
+	if (my == 3 || my == 7 || my == 11 || my == 15 || my == 19)
+		DrawCrossWalk();
 	if (mx != 0) mx--;
 }
 
 void People::Right(int) {
+	if (my == 3 || my == 7 || my == 11 || my == 15 || my == 19)
+		DrawCrossWalk();
 	if (mx != 100) mx++;
 }
 

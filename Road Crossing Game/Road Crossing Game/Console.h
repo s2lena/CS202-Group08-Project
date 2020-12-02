@@ -35,6 +35,7 @@ void DrawBoard();
 void DrawFrame(bool check);
 bool ChoiceFrame(string str);
 void DrawCrossWalk();
+void EndFrame();
 void clrscr();
 void ShowCur(bool CursorVisibility);
 void TextColor(int color);

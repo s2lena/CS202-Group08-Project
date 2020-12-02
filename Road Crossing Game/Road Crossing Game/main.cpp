@@ -26,8 +26,14 @@ void Subthread() {
 			game->ChangeState();
 		}
 		if (game->GetPeople().isFinish()) {
-			if (game->LevelUp())
+			if (game->LevelUp()) {
+				DrawFrame(false);
+				GotoXY(63, 10);
+				cout << "FINISH";
+				GotoXY(57, 11);
+				cout << "Congratulation!!";
 				game->ChangeState();
+			}
 			else {
 				clrscr();
 				DrawCrossWalk();
@@ -40,12 +46,9 @@ void Subthread() {
 int main() {
 	FixConsoleWindow();
 	game = new Game;
-	int tmp;
-	do {
-		clrscr();
-		tmp = game->LogIn();
-	} while (game->SetGame(tmp));
-	if (tmp != 3) {
+	game->SetGame(game->LogIn());
+	clrscr();
+	if (game->GetPeople().state) {
 		clrscr();
 		int c = 0;
 		MOVING = 0;
@@ -90,11 +93,12 @@ int main() {
 					game->PauseGame(t.native_handle());
 					break;
 				case KEY_M:
-					system("cls");
-					do {
-						clrscr();
-						tmp = game->LogIn();
-					} while (game->SetGame(tmp));
+					game->PauseGame(t.native_handle());
+					clrscr();
+					game->SetGame(game->LogIn());
+					clrscr();
+					DrawCrossWalk();
+					game->ResumeGame(t.native_handle());
 					break;
 				default:
 					game->ResumeGame(t.native_handle());
@@ -117,5 +121,6 @@ int main() {
 			}
 		}
 	}
+	EndFrame();
 	return 0;
 }

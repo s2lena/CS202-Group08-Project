@@ -43,8 +43,9 @@ public:
 	void CreateGame(int lv);
 	bool LevelUp();
 	int LogIn();
-	bool SetGame(int a);
+	void SetGame(int a);
 	bool IsImpact();
+	int Setting();
 };
 
 void Subthread();
