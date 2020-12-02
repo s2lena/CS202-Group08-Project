@@ -5,15 +5,12 @@
 class Animal{
 public:
 	Point a;
-	Animal() {
-		a.x = 0;
-		a.y = 0;
-	}
+	Animal() {}
 	virtual void Move() = 0;
 	virtual void Draw() = 0;
 	virtual void Erase() = 0;
 	bool isValid(int x, int y) {
-		if (x > (29) && x <= (WIDTH - 2 + 1)) return true;
+		if (x > (27) && x <= 99) return true;
 		return false;
 	}
 };

@@ -2,6 +2,7 @@
 #define _CONSOLE_H_
 extern const int WIDTH;
 extern const int HEIGHT;
+extern const int LEFT;
 #include <iostream>
 #include <fstream>
 #include <Windows.h>

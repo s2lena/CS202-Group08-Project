@@ -6,14 +6,13 @@
 
 class Bird : public Animal {
 public:
-	static const int size = 3;
-	Bird() {};
+	static const int size = 3; 
 	Bird(int x, int y) {
 		a.x = x;
 		a.y = y;
 	}
 	void Draw() {
-		const int tmp = WIDTH - size + 1;
+		const int tmp = 98;
 		if (isValid(a.x, a.y)) {
 			if (a.x == tmp + 1) {
 				GotoXY(a.x, a.y-1);
@@ -27,14 +26,14 @@ public:
 				cout << (char)220 << endl;
 				return;
 			}
-			else if (a.x == 0) {
+			else if (a.x == 29) {
 				GotoXY(a.x + 1, a.y);
 				cout << (char)223 << endl;
 				GotoXY(a.x + 1, a.y - 1);
 				cout << " " << (char)220 << endl;
 				return;
 			}
-			else if (a.x == -1) {
+			else if (a.x == 28) {
 				GotoXY(a.x + 2, a.y - 1);
 				cout << (char)220 << endl;
 				return;
@@ -47,13 +46,13 @@ public:
 		}
 	}
 	void Move() {
-		this->a.x--;
-		if (isValid(this->a.x, this->a.y)) {
-			this->a.x = 100;
+		a.x--;
+		if (!isValid(this->a.x, this->a.y)) {
+			this->a.x = 99;
 		}
 	}
 	void Erase() {
-		const int tmp = WIDTH - size + 1;
+		const int tmp = 98;
 		if (isValid(a.x, a.y)) {
 			if (a.x == tmp + 1) {
 				GotoXY(a.x, a.y);
@@ -67,14 +66,14 @@ public:
 				cout << " " << endl;
 				return;
 			}
-			else if (a.x == 0) {
+			else if (a.x == 29) {
 				GotoXY(a.x + 1, a.y);
 				cout << " " << endl;
 				GotoXY(a.x + 1, a.y - 1);
 				cout << "  " << endl;
 				return;
 			}
-			else if (a.x == -1) {
+			else if (a.x == 28) {
 				GotoXY(a.x + 2, a.y - 1);
 				cout << " " << endl;
 				return;

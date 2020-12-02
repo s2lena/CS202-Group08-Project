@@ -9,10 +9,10 @@ void Game::DrawGame() {
 		truck[i].draw();
 	for (int i = 0; i < car.size(); i++)
 		car[i].draw();
-	//for (int i = 0; i < bird.size(); i++)
-		//bird[i].Draw(); 
-	//for (int i = 0; i < dinosaur.size(); i++)
-		//dinosaur[i].Draw();
+	for (int i = 0; i < bird.size(); i++)
+		bird[i].Draw(); 
+	for (int i = 0; i < dinosaur.size(); i++)
+		dinosaur[i].Draw();
 }
 
 void Game::EraseGame() {
@@ -20,10 +20,10 @@ void Game::EraseGame() {
 		truck[i].erase();
 	for (int i = 0; i < car.size(); i++)
 		car[i].erase();
-	//for (int i = 0; i < bird.size(); i++)
-		//bird[i].Erase();
-	//for (int i = 0; i < dinosaur.size(); i++)
-		//dinosaur[i].Erase();
+	for (int i = 0; i < bird.size(); i++)
+		bird[i].Erase();
+	for (int i = 0; i < dinosaur.size(); i++)
+		dinosaur[i].Erase();
 }
 
 Game::~Game() {
@@ -40,10 +40,10 @@ bool Game::IsImpact() {
 			check = true;
 		else if (this->car[i].Impact(this->people.mx, this->people.my))
 			check = true;
-		//else if (this->bird[i].Impact(this->people.mx, this->people.my))
-			//check =  true;
-		//else if (this->dinosaur[i].Impact(this->people.mx, this->people.my))
-			//check = true;
+		/*else if (this->bird[i].Impact(this->people.mx, this->people.my))
+			check =  true;
+		else if (this->dinosaur[i].Impact(this->people.mx, this->people.my))
+			check = true;*/
 		if (check)
 			break;
 	}
