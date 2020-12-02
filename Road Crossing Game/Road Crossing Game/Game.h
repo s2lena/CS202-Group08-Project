@@ -13,8 +13,8 @@
 
 const int y_truck = 16;
 const int y_car = 8;
-const int y_bird = 12;
-const int y_dinosaur = 4;
+const int y_bird = 13;
+const int y_dinosaur = 5;
 
 class Game {
 protected:
