@@ -12,6 +12,7 @@ extern const int LEFT;
 #include <stdio.h>
 #include <string>
 #include <vector>
+#pragma comment(lib, "Winmm.lib")
 
 #define KEY_UP 72
 #define KEY_DOWN 80

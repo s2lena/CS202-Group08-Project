@@ -17,7 +17,7 @@ void GotoXY(int x, int y)
 }
 
 void DrawBoard() {
-
+	TextColor(12);
 	for (int i = 0; i < 30; i++) {
 		GotoXY(i, 12);
 		cout << (char)223;
@@ -32,12 +32,15 @@ void DrawBoard() {
 		GotoXY(101, i);
 		cout << (char)219;
 	}
-
+	TextColor(11);
 	GotoXY(0, 0);
 	cout << "          CONTROL" << endl;
+	TextColor(7);
 	cout << "   Use Arrows key to move ";
 	GotoXY(0, 4);
+	TextColor(11);
 	cout << "       INSTRUCTION:" << endl;
+	TextColor(7);
 	cout << "   Save Game    :   L" << endl;
 	cout << "   Load Game    :   T" << endl;
 	cout << "   Pause        :   P" << endl;
@@ -188,7 +191,7 @@ bool ChoiceFrame(string str) {
 				TextColor(227);
 			else
 				TextColor(7);
-			GotoXY(x + 5 + 10 * i, y + 2);
+			GotoXY(x + 4 + 10 * i, y + 2);
 			cout << list[i];
 		}
 		switch ((c = _getch())) {
@@ -243,13 +246,15 @@ void DrawCrossWalk() {
 }
 
 void EndFrame() {
-	system("cls");
+	clrscr();
 	DrawBoard();
+	TextColor(14);
 	int x = 54;
 	GotoXY(x, 8);
 	cout << "(o^-^o) WE PASS CS202 (o^-^o)" << endl;
 	GotoXY(x - 3, 9);
 	cout << "(o^-^o) HAVE A NICE VACATION (o^-^o)" << endl;
 	GotoXY(0, 20);
+	TextColor(7);
 }
 
