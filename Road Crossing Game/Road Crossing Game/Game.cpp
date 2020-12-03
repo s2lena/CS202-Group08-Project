@@ -33,6 +33,13 @@ Game::~Game() {
 	dinosaur.erase(dinosaur.begin(), dinosaur.end());
 }
 
+void Game::Clear() {
+	truck.erase(truck.begin(), truck.end());
+	car.erase(car.begin(), car.end());
+	bird.erase(bird.begin(), bird.end());
+	dinosaur.erase(dinosaur.begin(), dinosaur.end());
+}
+
 bool Game::IsImpact() {
 	bool check = false;
 	for (int i = 0; i < this->level; i++) {
@@ -107,10 +114,7 @@ void Game::UpdatePosVehicle()
 
 void Game::CreateGame(int lv) {
 	level = lv;
-	truck.erase(truck.begin(), truck.end());
-	car.erase(car.begin(), car.end());
-	bird.erase(bird.begin(), bird.end());
-	dinosaur.erase(dinosaur.begin(), dinosaur.end());
+	this->Clear();
 	for (int i = 0; i < lv; i++) {
 		int x_vehicle = 6 * i + 30;
 		int x_animal = WIDTH - 6 * i;
@@ -127,10 +131,7 @@ void Game::CreateGame(int lv) {
 
 void Game::ResetGame() {
 	level = 1;
-	truck.erase(truck.begin(), truck.end());
-	car.erase(car.begin(), car.end());
-	bird.erase(bird.begin(), bird.end());
-	dinosaur.erase(dinosaur.begin(), dinosaur.end());
+	this->Clear();
 	this->CreateGame(level);
 	this->people.Reset();
 }
@@ -142,10 +143,7 @@ bool Game::LevelUp() {
 	}
 	else {
 		this->level++;
-		truck.erase(truck.begin(), truck.end());
-		car.erase(car.begin(), car.end());
-		bird.erase(bird.begin(), bird.end());
-		dinosaur.erase(dinosaur.begin(), dinosaur.end());
+		this->Clear();
 		this->people.Reset();
 		this->CreateGame(level);
 	}
@@ -173,6 +171,7 @@ void Game::LoadGame() {
 	int x = 0; int y = 0;
 	TextColor(7);
 	if (str != "Exit") {
+		this->Clear();
 		ifstream ifs;
 		ifs.open(str);
 		ifs >> this->level;
