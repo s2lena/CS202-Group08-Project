@@ -23,6 +23,9 @@ void Subthread() {
 			game->DrawGame();
 
 			if (game->IsImpact()) {
+				mciSendStringA("stop SuperMarioWorld.mp3", 0, NULL, 0);
+				mciSendStringA("play SuperMarioGameOver.mp3", 0, NULL, 0);
+
 				game->ProcessDead();
 			}
 			if (game->GetPeople().isFinish()) {
@@ -50,6 +53,7 @@ int main() {
 		MOVING = 0;
 		DrawCrossWalk();
 		thread t(Subthread);
+		mciSendStringA("play SuperMarioWorld.mp3", 0, NULL, 0);
 		while (1) {
 			c = 0;
 			if (!game->GetPeople().isDead()) {
@@ -79,10 +83,12 @@ int main() {
 					break;
 				case KEY_T:
 					game->PauseGame(t.native_handle());
+					mciSendStringA("stop SuperMarioWorld.mp3", 0, NULL, 0);
 					game->LoadGame();
 					clrscr();
 					DrawCrossWalk();
 					game->DrawGame();
+					mciSendStringA("play SuperMarioWorld.mp3", 0, NULL, 0);
 					game->ResumeGame(t.native_handle());
 					break;
 				case KEY_P:
@@ -105,6 +111,7 @@ int main() {
 				game->PauseGame(t.native_handle());
 				int pos = ChoiceFrame("Do you want to reset?");
 				if (!pos) {
+					mciSendStringA("play SuperMarioWorld.mp3", 0, NULL, 0);
 					clrscr();
 					DrawCrossWalk();
 					MOVING = 0;

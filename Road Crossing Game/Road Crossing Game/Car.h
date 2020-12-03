@@ -51,7 +51,6 @@ public:
 		mx++;
 		if (outMap(mx, my) ){
 			mx = 30;
-			//DrawCrossWalk();
 		}
 	}
 	bool Impact(int x, int y) {

@@ -286,7 +286,7 @@ void Game::ProcessDead() {
 	for (int i = 91; i >= this->people.mx - 3; i--)
 	{
 		GotoXY(i, this->people.my);
-		TextColor(133);
+		TextColor(207);
 		cout << "AMBULANCE";
 		GotoXY(i + 9, this->people.my);
 		TextColor(7);
@@ -300,10 +300,12 @@ void Game::ProcessDead() {
 void Game::ProcessFinish() {
 	this->ChangeState();
 	DrawFrame(false);
+	TextColor(14);
 	GotoXY(62, 10);
 	cout << "FINISH";
-	GotoXY(57, 11);
+	GotoXY(58, 11);
 	cout << "Congratulation!!";
+	TextColor(7);
 	GotoXY(0, 21);
 	cout << "Press ENTER to continue (^.^)";
 }
