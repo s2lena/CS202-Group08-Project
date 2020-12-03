@@ -15,28 +15,24 @@ void Subthread() {
 				game->GetPeople().Erase();
 			game->UpdatePosPeople(MOVING);
 			game->GetPeople().Draw();
-		}
-		MOVING = 0;
-		game->EraseGame();
-		game->UpdatePosVehicle();
-		game->UpdatePosAnimal();
-		game->DrawGame();
 
-		if (game->IsImpact()) {
-			game->ChangeState();
-		}
-		if (game->GetPeople().isFinish()) {
-			if (game->LevelUp()) {
-				DrawFrame(false);
-				GotoXY(63, 10);
-				cout << "FINISH";
-				GotoXY(57, 11);
-				cout << "Congratulation!!";
-				game->ChangeState();
+			MOVING = 0;
+			game->EraseGame();
+			game->UpdatePosVehicle();
+			game->UpdatePosAnimal();
+			game->DrawGame();
+
+			if (game->IsImpact()) {
+				game->ProcessDead();
 			}
-			else {
-				clrscr();
-				DrawCrossWalk();
+			if (game->GetPeople().isFinish()) {
+				if (game->LevelUp()) {
+					game->ProcessFinish();
+				}
+				else {
+					clrscr();
+					DrawCrossWalk();
+				}
 			}
 		}
 		Sleep(100);
@@ -111,6 +107,7 @@ int main() {
 				if (!pos) {
 					clrscr();
 					DrawCrossWalk();
+					MOVING = 0;
 					game->ResetGame();
 					game->DrawGame();
 					game->ResumeGame(t.native_handle());
