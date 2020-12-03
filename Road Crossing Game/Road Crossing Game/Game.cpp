@@ -281,6 +281,31 @@ int Game::Setting() {
 	return pos + 1;
 }
 
+void Game::ProcessDead() {
+	this->ChangeState();
+	for (int i = 91; i >= this->people.mx - 3; i--)
+	{
+		GotoXY(i, this->people.my);
+		TextColor(133);
+		cout << "AMBULANCE";
+		GotoXY(i + 9, this->people.my);
+		TextColor(7);
+		cout << " ";
+		Sleep(50);
+	}
+	GotoXY(0, 21);
+	cout << "YOU ARE IN ACCIDENT!!. Press ENTER to continue :))";
+}
+
+void Game::ProcessFinish() {
+	this->ChangeState();
+	DrawFrame(false);
+	GotoXY(63, 10);
+	cout << "FINISH";
+	GotoXY(57, 11);
+	cout << "Congratulation!!";
+}
+
 int Game::LogIn() {
 	DrawBoard();
 	ShowCur(false);

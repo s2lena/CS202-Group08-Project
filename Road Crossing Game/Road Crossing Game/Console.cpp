@@ -252,3 +252,4 @@ void EndFrame() {
 	cout << "(o^-^o) HAVE A NICE VACATION (o^-^o)" << endl;
 	GotoXY(0, 20);
 }
+

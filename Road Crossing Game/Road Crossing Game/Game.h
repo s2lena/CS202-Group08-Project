@@ -46,6 +46,8 @@ public:
 	void SetGame(int a);
 	bool IsImpact();
 	int Setting();
+	void ProcessDead();
+	void ProcessFinish();
 };
 
 void Subthread();
