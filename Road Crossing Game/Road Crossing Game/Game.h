@@ -29,6 +29,7 @@ public:
 	void DrawGame();
 	void EraseGame();
 	~Game();
+	void Clear();
 	People GetPeople();
 	void ChangeState();
 	void UpdatePosPeople(short i);
