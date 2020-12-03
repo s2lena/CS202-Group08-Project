@@ -300,10 +300,12 @@ void Game::ProcessDead() {
 void Game::ProcessFinish() {
 	this->ChangeState();
 	DrawFrame(false);
-	GotoXY(63, 10);
+	GotoXY(62, 10);
 	cout << "FINISH";
 	GotoXY(57, 11);
 	cout << "Congratulation!!";
+	GotoXY(0, 21);
+	cout << "Press ENTER to continue (^.^)";
 }
 
 int Game::LogIn() {
