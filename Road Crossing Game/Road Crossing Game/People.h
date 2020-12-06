@@ -1,7 +1,7 @@
 #ifndef _PEOPLE_H_
 #define _PEOPLE_H_
 
-#include "Console.h"5
+#include "Console.h"
 
 class People {
 public:

@@ -54,5 +54,11 @@
     <ClInclude Include="Game.h">
       <Filter>Source Files\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="CTrafficLight.h">
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
