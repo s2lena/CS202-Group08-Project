@@ -6,7 +6,9 @@
 #include "Car.h"
 #include "Truck.h"
 #include "People.h"
-#include "Console.h"
+#include "CTrafficLight.h"
+#include "Timer.h"
+
 #include <vector>
 #include <string>
 #include <fstream>
@@ -25,6 +27,7 @@ protected:
 	People people;
 	int level;
 public:
+	CTrafficLight t;
 	Game();
 	void DrawGame();
 	void EraseGame();
@@ -49,6 +52,8 @@ public:
 	int Setting();
 	void ProcessDead();
 	void ProcessFinish();
+	void DrawTraffic();
+	void setTimeTraffic();
 };
 
 void Subthread();

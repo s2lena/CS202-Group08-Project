@@ -3,8 +3,17 @@
 Game::Game() {
 	level = 1;
 }
+void Game::DrawTraffic() {
+	if(t.getY()!=-1) t.Draw();
+}
+void Game::setTimeTraffic() {
+	
+}
+
 
 void Game::DrawGame() {
+
+
 	for (int i = 0; i < truck.size(); i++)
 		truck[i].draw();
 	for (int i = 0; i < car.size(); i++)
@@ -89,26 +98,33 @@ void Game::UpdatePosPeople(short i)
 
 void  Game::UpdatePosAnimal()
 {
-	for (int i = 0; i < level; i++)
-	{
-		bird[i].Move();
+	if (t.getY() != y_bird) {
+		for (int i = 0; i < level; i++)
+		{
+			bird[i].Move();
+		}
 	}
-	for (int i = 0; i < level; i++)
-	{
-		dinosaur[i].Move();
+	if (t.getY() != y_dinosaur) {
+		for (int i = 0; i < level; i++)
+		{
+			dinosaur[i].Move();
+		}
 	}
 }
 
 void Game::UpdatePosVehicle()
 {
-	for (int i = 0; i < level; i++)
-	{
-		car[i].move();
+	if (t.getY() != y_car) {
+		for (int i = 0; i < level; i++)
+		{
+			car[i].move();
+		}
 	}
-	for (int i = 0; i < level; i++)
-	{
-		truck[i].move();
-
+	if (t.getY() != y_truck) {
+		for (int i = 0; i < level; i++)
+		{
+			truck[i].move();
+		}
 	}
 }
 

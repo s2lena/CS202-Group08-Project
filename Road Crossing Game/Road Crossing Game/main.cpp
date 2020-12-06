@@ -1,5 +1,6 @@
 #include "Console.h"
 #include "Game.h"
+
 #include <thread>
 
 const int WIDTH=100;
@@ -7,20 +8,38 @@ const int HEIGHT=20;
 const int LEFT = 30;
 Game* game;
 int MOVING;
+const vector<int> list_traffic{ 5,8,13,16 };
 
 void Subthread() {
+	
+	int cnt = 0;
 	while (1) {
 		if (!game->GetPeople().isDead()) {
+			if (cnt!=0 && cnt%10000==0) {
+				Timer time = Timer();
+				int r = rand() % 4;
+				game->t.setY(list_traffic[r]);
+				time.setTimeout([&]() {
+					game->t.Clear();
+					game->t.setY(-1);
+					time.stop();
+					}, 4000);
+			}
 			if (MOVING)
 				game->GetPeople().Erase();
 			game->UpdatePosPeople(MOVING);
 			game->GetPeople().Draw();
 
 			MOVING = 0;
+
 			game->EraseGame();
 			game->UpdatePosVehicle();
 			game->UpdatePosAnimal();
 			game->DrawGame();
+			
+
+			game->DrawTraffic();
+
 
 			if (game->IsImpact()) {
 				mciSendStringA("stop SuperMarioWorld.mp3", 0, NULL, 0);
@@ -39,6 +58,7 @@ void Subthread() {
 			}
 		}
 		Sleep(100);
+		cnt += 100;
 	}
 }
 
