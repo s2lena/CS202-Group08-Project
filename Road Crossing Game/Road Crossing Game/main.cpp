@@ -95,6 +95,7 @@ int main() {
 					game->PauseGame(t.native_handle());
 					break;
 				case KEY_M:
+					mciSendStringA("stop SuperMarioWorld.mp3", 0, NULL, 0);
 					game->PauseGame(t.native_handle());
 					clrscr();
 					game->SetGame(game->LogIn());
