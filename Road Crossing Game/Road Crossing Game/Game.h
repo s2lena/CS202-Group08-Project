@@ -56,6 +56,4 @@ public:
 	void setTimeTraffic();
 };
 
-void Subthread();
-
 #endif // _GAME_H_
