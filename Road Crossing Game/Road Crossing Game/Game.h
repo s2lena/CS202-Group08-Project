@@ -51,6 +51,4 @@ public:
 	void ProcessFinish();
 };
 
-void Subthread();
-
 #endif // _GAME_H_
